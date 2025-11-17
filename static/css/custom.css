@@ -1,0 +1,10 @@
+
+/* Red-White medical theme custom styles */
+body { background: #f8f9fb; }
+.navbar-brand .fa-droplet { transform: rotate(-10deg); }
+.card { border-radius: 12px; }
+.table-hover tbody tr:hover { background: #fff5f5; }
+.badge.bg-danger { background: #d6332a !important; }
+.btn-danger { background: #d6332a; border-color: #b02a23; }
+.btn-danger:hover { background: #b02a23; }
+footer .text-muted { color: #666; }

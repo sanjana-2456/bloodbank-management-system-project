@@ -1,0 +1,22 @@
+{% extends 'bloodbank/base_auth.html' %}
+{% block title %}Login - BloodBank{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h4 class="text-center text-danger mb-4"><i class="fa-solid fa-user me-2"></i>Login</h4>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-danger w-100">Login</button>
+  </form>
+  <div class="text-center mt-3">
+    <small>Don’t have an account? <a href="{% url 'register' %}" class="text-danger">Register</a></small>
+  </div>
+</div>
+{% endblock %}

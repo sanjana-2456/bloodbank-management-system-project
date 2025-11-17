@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BloodBank Management{% endblock %}</title>
+
+  <!-- Bootstrap & Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    footer {
+      margin-top: auto;
+    }
+    .navbar-brand span {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    header {
+      border-bottom: 3px solid #dc3545;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+      <i class="fa-solid fa-droplet fa-lg me-2"></i>
+      <span>BloodBank</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa-solid fa-house me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'donors_list' %}"><i class="fa-solid fa-users me-1"></i>Donors</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'requests_list' %}"><i class="fa-solid fa-hand-holding-droplet me-1"></i>Requests</a></li>
+
+        {% if user.is_authenticated %}
+          <!-- ✅ If user is logged in -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fa-solid fa-user me-1"></i> {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket me-1"></i> Logout</a></li>
+            </ul>
+          </li>
+        {% else %}
+          <!-- ❌ If user is not logged in -->
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket me-1"></i>Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fa-solid fa-user-plus me-1"></i>Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header -->
+  <header class="py-4 bg-white border-bottom mb-4">
+    <div class="container d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center mb-2 mb-md-0">
+        <i class="fa-solid fa-hospital fa-2x text-danger me-3"></i>
+        <div>
+          <h1 class="h4 mb-0 text-danger">BloodBank Management</h1>
+          <small class="text-muted">Donate. Save Lives. Manage easily.</small>
+        </div>
+      </div>
+      <div>
+        <a class="btn btn-outline-danger btn-sm me-2" href="{% url 'add_donor' %}">
+          <i class="fa-solid fa-user-plus me-1"></i> Add Donor
+        </a>
+        <a class="btn btn-danger btn-sm" href="{% url 'add_request' %}">
+          <i class="fa-solid fa-hand-holding-droplet me-1"></i> Request Blood
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="container mb-5">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 bg-white border-top">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+      <div class="text-muted">© <span id="year"></span> BloodBank</div>
+      <div>
+        <a class="text-danger me-3" href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a class="text-danger me-3" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="text-danger" href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
